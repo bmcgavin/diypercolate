@@ -51,9 +51,17 @@ public class Percolator {
 		Percolator percolator = new Percolator();
 		percolator.addQuery("one");
 		percolator.addQuery("two");
+		percolator.addQuery("three");
 		
-		System.out.println(percolator.getMatchingQueries("one two three"));
-		System.out.println(percolator.getMatchingQueries("two"));
-		System.out.println(percolator.getMatchingQueries("three"));
+		String  docs[] = {
+				"one two three",
+				"two",
+				"three",
+				"four"
+		};
+		
+		for (String doc : docs) {
+			System.out.println(doc + " -> " + percolator.getMatchingQueries(doc));
+		}
 	}
 }
