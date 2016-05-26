@@ -13,7 +13,6 @@ import org.apache.lucene.util.Version;
 
 public class Percolator {
 	
-	public static final Version VERSION = Version.LUCENE_43;
 	public static final String F_CONTENT = "content";
 	private List<Query> queries;
 	private MemoryIndex index;
@@ -24,8 +23,8 @@ public class Percolator {
 	}
 	
 	public void addQuery(String query) throws ParseException {
-		Analyzer analyzer = new SimpleAnalyzer(VERSION);
-		QueryParser parser = new QueryParser(Version.LUCENE_43, F_CONTENT, analyzer);
+		Analyzer analyzer = new SimpleAnalyzer();
+		QueryParser parser = new QueryParser(F_CONTENT, analyzer);
 		queries.add(parser.parse(query));
 	}
 	
@@ -33,7 +32,7 @@ public class Percolator {
 	public List<Query> getMatchingQueries(String doc) {
 		synchronized (index) {
 			index.reset();
-			index.addField(F_CONTENT, doc, new SimpleAnalyzer(VERSION));
+			index.addField(F_CONTENT, doc, new SimpleAnalyzer());
 		}
 		
 		List<Query> matching = new ArrayList<Query>();
